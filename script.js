@@ -264,4 +264,21 @@ function sendMail() {
     }
 
     const subject = encodeURIComponent(translations[currentLanguage].emailHeader);
-    let body =
+    let body = `${translations[currentLanguage].emailHeader}\n\n`;
+    body += `${translations[currentLanguage].emailItemHeader}\n`;
+    body += "---------------------------------------\n";
+    cart.forEach(item => {
+        body += `${item.name[currentLanguage]} | €${item.price.toFixed(2)} | ${item.quantity} | €${(item.price * item.quantity).toFixed(2)}\n`;
+    });
+    body += "---------------------------------------\n";
+    const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    body += `${translations[currentLanguage].total}: €${total.toFixed(2)}\n\n`;
+    body += `${translations[currentLanguage].emailFooter}`;
+    body = encodeURIComponent(body);
+
+    const mailtoLink = `mailto:kvanhoye@skynet.be?subject=${subject}&body=${body}`;
+    window.location.href = mailtoLink;
+}
+
+// Initialize with default language
+setLanguage('nl');
