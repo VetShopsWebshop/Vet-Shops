@@ -135,7 +135,7 @@ const products = [
 ];
 
 let cart = [];
-let currentLanguage = 'en'; // Default language
+let currentLanguage = 'nl'; // Default language
 
 // Language texts, including email template
 const translations = {
